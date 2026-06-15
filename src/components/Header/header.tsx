@@ -74,7 +74,7 @@ const Header = () => {
                                 <li><Link href={'#'} title='Home' className='text-white text-base'>Home</Link></li>
                                 <li><Link href={'#'} title='Courses' className='text-white text-base'>Courses</Link></li>
                                 <li><Link href={'#'} title='Careers' className='text-white text-base'>Careers</Link></li>
-                                <li><Link href={'#'} title='Blog' className='text-white text-base'>Blog</Link></li>
+                                <li><Link href={'/blog'} title='Blog' className='text-white text-base'>Blog</Link></li>
                                 <li><Link href={'#'} title='About Us' className='text-white text-base'>About Us</Link></li>
                             </ul>
                             {isLoggedIn ? (
