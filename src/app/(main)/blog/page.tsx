@@ -14,7 +14,7 @@ const Blog = () => {
         dispatch(blogPage());
     }, [dispatch]);
 
-    console.log("blogData", blogData)
+    //console.log("blogData", blogData)
 
 
     return (

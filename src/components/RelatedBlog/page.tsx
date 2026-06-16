@@ -39,7 +39,7 @@ const RelatedBlog = ({relatedBlogs,}:RelatedBlogProps) => {
                         {relatedBlogs?.data.map((item:any, index:any) => (
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-2xl p-6 shadow-lg h-full">
-                                    <div className='h-[300px] rounded-2xl border border-gray-400'>
+                                    <div className='h-75 rounded-2xl border border-gray-400'>
                                         <img src={item.image} alt='image' />
                                     </div>
                                     <div className='mt-3'>

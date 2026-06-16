@@ -73,7 +73,7 @@ const Header = () => {
                             <ul className='flex items-center gap-10'>
                                 <li><Link href={'#'} title='Home' className='text-white text-base'>Home</Link></li>
                                 <li><Link href={'#'} title='Courses' className='text-white text-base'>Courses</Link></li>
-                                <li><Link href={'#'} title='Careers' className='text-white text-base'>Careers</Link></li>
+                                <li><Link href={'/membership'} title='Membership' className='text-white text-base'>Membership</Link></li>
                                 <li><Link href={'/blog'} title='Blog' className='text-white text-base'>Blog</Link></li>
                                 <li><Link href={'#'} title='About Us' className='text-white text-base'>About Us</Link></li>
                             </ul>
@@ -87,7 +87,7 @@ const Header = () => {
                                         <img src="/images/logo.svg" alt="profile" className="w-full h-full object-cover" />
                                     </button>
                                     {isDropdownOpen && (
-                                        <div className="absolute right-0 top-full mt-2 shadow-xl p-2 bg-white w-[140px] rounded-md">
+                                        <div className="absolute right-0 top-full mt-2 shadow-xl p-2 bg-white w-35 rounded-md">
                                             <Link 
                                                 href="/profile" 
                                                 className="block py-2"

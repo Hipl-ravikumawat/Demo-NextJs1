@@ -9,10 +9,9 @@ import { blogDetail } from '@/store/slices/blogSlice';
 
 const BlogDetail = () => {
     const dispatch = useAppDispatch();
+
     const searchParams = useSearchParams();
-
     const id = searchParams.get('id');
-
     const {blogDetailData, loading, error,} = useAppSelector((state) => state.blog);
 
     useEffect(() => {
@@ -21,13 +20,12 @@ const BlogDetail = () => {
         }
     }, [dispatch, id]);
 
-    console.log("blogDetailData", blogDetailData)
-
+    //console.log("blogDetailData", blogDetailData)
 
     return (
         <>
             <div className='bg-[#9DCCFF] pt-40'>
-                <img src={blogDetailData?.data?.image} alt='blog-image' className='w-full h-[400px] border-b border-b-gray-400' />
+                <img src={blogDetailData?.data?.image} alt='blog-image' className='w-full h-100 border-b border-b-gray-400' />
             </div>
 
             <section className='pt-20'>
