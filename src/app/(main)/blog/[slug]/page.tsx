@@ -24,9 +24,11 @@ const BlogDetail = () => {
 
     return (
         <>
-            <div className='bg-[#9DCCFF] pt-40'>
-                <img src={blogDetailData?.data?.image} alt='blog-image' className='w-full h-100 border-b border-b-gray-400' />
-            </div>
+            <div 
+                className='bg-no-repeat bg-cover bg-center pt-40 relative z-10 after:content after:absolute after:left-0 after:top-0 after:w-full after:h-full after:bg-black/50 after:-z-[1] h-100'
+                //style={{backgroundImage: `url(${blogDetailData?.data?.image})`,}}
+                style={{backgroundImage: `url(/images/totc1.png)`}}
+            ></div>
 
             <section className='pt-20'>
                 <div className="max-w-container mx-auto">
@@ -39,8 +41,9 @@ const BlogDetail = () => {
                     </div>
                     <div className='flex items-center justify-between gap-4 pb-8'>
                         <div className='flex items-center gap-3'>
-                            <div className='w-16 h-16 rounded-sm overflow-hidden border border-gray-400'>
-                                <img src={blogDetailData?.data?.author?.image} alt='' className='' />
+                            <div className='w-16 h-16 rounded-sm overflow-hidden border border-gray-300'>
+                                {/* <img src={blogDetailData?.data?.author?.image} alt='' className='' /> */}
+                                <img src={'/images/user.png'} alt='' className='w-full h-full object-cover' />
                             </div>
                             <div>
                                 <span className='text-xs font-medium text-[#696984] block'>Written by</span>

@@ -1,7 +1,32 @@
-import Link from 'next/link';
-import React from 'react';
+"use client";
+
+import { useFormik } from "formik";
+import { toast } from "react-toastify";
+import { newsletterSchema } from "@/validations/newsletterSchema";
+import { subscribeNewsletter } from "@/store/slices/newsletterSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import Link from "next/link";
 
 const Footer = () => {
+    const dispatch = useAppDispatch();
+
+    const { loading } = useAppSelector((state) => state.newsletter);
+
+    const formik = useFormik({
+        initialValues: {
+            email: "",
+        },
+        validationSchema: newsletterSchema,
+        onSubmit: async (values, { resetForm }) => {
+            try {
+                const result = await dispatch(subscribeNewsletter(values)).unwrap();
+                toast.success(result.message || "Subscribed successfully");
+                resetForm();
+            } catch (error: any) {
+                toast.error(error);
+            }
+        },
+    });
     return (
         <>
             <footer className='bg-[#252641] pt-16 pb-10'>
@@ -18,9 +43,30 @@ const Footer = () => {
                     </div>
                     <div className='text-center my-20'>
                         <p className='text-[#B2B3CF] text-2xl font-semibold mb-3'>Subscribe to get our Newsletter</p>
-                        <form className='flex items-center justify-center gap-4'>
-                            <input type='email' className='outline-0 w-[400px] border border-[#83839A] p-3 rounded-full text-[#83839A]' placeholder='Your Email' />
-                            <button type='submit' className='bg-primary px-6 py-3 text-white rounded-full cursor-pointer'>Subscribe</button>
+                        <form onSubmit={formik.handleSubmit} className='flex items-center justify-center gap-4'>
+                            <div>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="Your Email"
+                                    className="outline-0 w-[400px] border border-[#83839A] p-3 rounded-full text-[#83839A]"
+                                    value={formik.values.email}
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                />
+                                {formik.touched.email && formik.errors.email && (
+                                    <p className="text-red-400 text-sm mt-2 text-left">
+                                        {formik.errors.email}
+                                    </p>
+                                )}
+                            </div>
+                            <button 
+                                type='submit' 
+                                disabled={loading}
+                                className='bg-primary px-6 py-3 text-white rounded-full cursor-pointer'
+                            >
+                                {loading ? "Subscribing..." : "Subscribe"}
+                            </button>
                         </form>
                     </div>
                     <div className=''>

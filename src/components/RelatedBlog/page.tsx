@@ -39,13 +39,15 @@ const RelatedBlog = ({relatedBlogs,}:RelatedBlogProps) => {
                         {relatedBlogs?.data.map((item:any, index:any) => (
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-2xl p-6 shadow-lg h-full">
-                                    <div className='h-75 rounded-2xl border border-gray-400'>
-                                        <img src={item.image} alt='image' />
+                                    <div className='h-75 rounded-2xl border border-gray-400 overflow-hidden'>
+                                        {/* <img src={item.image} alt='image' /> */}
+                                        <img src={'/images/totc1.png'} alt='image' className='h-full w-full object-cover' />
                                     </div>
                                     <div className='mt-3'>
                                         <h3 className='text-black text-xl font-bold mb-4'><Link href={`/blog/${item.slug}?id=${item._id}`}>{item.title}</Link></h3>
                                         <div className='flex items-center gap-2 mb-4'>
-                                            <img src={item.author.image} className='w-10 h-10 rounded-full overflow-hidden' />
+                                            {/* <img src={item.author.image} className='w-10 h-10 rounded-full overflow-hidden' /> */}
+                                            <img src={'/images/user.png'} className='w-10 h-10 rounded-full overflow-hidden border border-gray-300' />
                                             <span>{item.author.name}</span>
                                         </div>
                                         <p className='mb-3'>{item.description}</p>

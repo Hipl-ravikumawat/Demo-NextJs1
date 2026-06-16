@@ -29,7 +29,8 @@ const Blog = () => {
                             <Link href={'#'} className="bg-primary px-4 py-3 rounded-full text-white">Start learning now</Link>
                         </div>
                         <div>
-                            <img src={blogData?.featuredBlog?.image} alt='' className='rounded-2xl h-125 border border-gray-400' />
+                            {/* <img src={blogData?.featuredBlog?.image} alt='' className='rounded-2xl h-125 border border-gray-400' /> */}
+                            <img src={'images/totc1.png'} alt='' className='rounded-2xl h-125 border border-gray-400 object-cover' />
                         </div>
                     </div>
                 </div>
@@ -65,7 +66,8 @@ const Blog = () => {
                     <div className='grid grid-cols-4 gap-6'>
                         {blogData?.marketingArticles.map((item: any, index: any) =>(
                             <div key={index} className='bg-white shadow-2xl p-4 rounded-2xl'>
-                                <img src={item?.image} alt='' className='h-37.5 rounded-xl border border-gray-400 w-full mb-3' />
+                                {/* <img src={item?.image} alt='' className='h-37.5 rounded-xl border border-gray-400 w-full mb-3' /> */}
+                                <img src={'images/totc1.png'} alt='' className='h-37.5 rounded-xl border border-gray-400 w-full mb-3 object-cover overflow-hidden' />
                                 <div>
                                     <div className='flex items-center justify-between mb-2'>
                                         <span className='text-xs text-[#696984]'>
@@ -82,7 +84,8 @@ const Blog = () => {
                                     <p className="mb-4">{item?.description}</p>
                                     <div className='flex items-center justify-between'>
                                         <div className='flex gap-2 items-center'>
-                                            <img src={item?.author.image} alt='' className='w-10 h-10 border border-gray-400 object-cover rounded-full' />
+                                            {/* <img src={item?.author.image} alt='' className='w-10 h-10 border border-gray-300 object-cover rounded-full' /> */}
+                                            <img src={'images/user.png'} alt='' className='w-10 h-10 border border-gray-300 object-cover rounded-full' />
                                             <span className='text-black text-xs font-semibold'>{item?.author.name}</span>
                                         </div>
                                         <span className='text-primary text-base font-bold'>$80</span>

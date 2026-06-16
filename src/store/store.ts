@@ -3,6 +3,9 @@ import authReducer from "./slices/authSlice";
 import homeReducer from "./slices/homeSlice";
 import blogReducer from "./slices/blogSlice";
 import membershipReducer from "./slices/memberShipSlice";
+import profileReducer from "./slices/profileSlice";
+import coursesReducer from "./slices/coursesSlice";
+import newsletterReducer from "./slices/newsletterSlice";
 
 export const store = configureStore({
     reducer: {
@@ -10,6 +13,9 @@ export const store = configureStore({
         home: homeReducer,
         blog: blogReducer,
         membership: membershipReducer,
+        profile: profileReducer,
+        courses: coursesReducer,
+        newsletter: newsletterReducer,
     },
 });
 

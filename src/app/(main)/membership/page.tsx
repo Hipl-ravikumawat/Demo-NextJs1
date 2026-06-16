@@ -118,8 +118,9 @@ const MemberShip = () => {
                         {memberShipData?.testimonialSection?.students.map((item:any, index:any) => (
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-2xl p-6 shadow-lg h-full text-center">
-                                    <div className='h-25 w-25 rounded-xl border border-gray-400 mx-auto'>
-                                        <img src={item.image} alt='image' />
+                                    <div className='h-25 w-25 rounded-lg border border-gray-300 mx-auto'>
+                                        {/* <img src={item.image} alt='image' className='w-full h-full object-cover' /> */}
+                                        <img src={'images/user.png'} alt='image' className='w-full h-full object-cover' />
                                     </div>
                                     <div className='mt-3'>
                                         <h3 className='text-black text-xl font-bold mb-2'>{item.name}</h3>
@@ -163,7 +164,8 @@ const MemberShip = () => {
                         {memberShipData?.finalSections.map((item: any, index: any) => (
                             <div key={index} className='shadow rounded-2xl p-6'>
                                 <div className='border border-gray-300 rounded-lg overflow-hidden mb-3 h-75'>
-                                    <img src={item?.image} alt='' className='w-full h-full object-cover' />
+                                    {/* <img src={item?.image} alt='' className='w-full h-full object-cover' /> */}
+                                    <img src={'images/totc1.png'} alt='' className='w-full h-full object-cover' />
                                 </div>
                                 <h5 className='text-black font-bold mb-3'>{item?.title}</h5>
                                 <p className='m-0 mb-5'>{item?.description}</p>

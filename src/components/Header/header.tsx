@@ -5,7 +5,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { logoutUser } from "@/store/slices/authSlice";
 
 const Header = () => {
@@ -17,7 +17,7 @@ const Header = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const [logoutModal, setLogoutModal] = useState(false)
-
+    
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (
@@ -35,12 +35,27 @@ const Header = () => {
     }, []);
 
     useEffect(() => {
-        const token = Cookies.get("token");
-        const storedUser = localStorage.getItem("user");
-        setIsLoggedIn(!!token);
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
+        const loadUser = () => {
+            const token = Cookies.get("token");
+            const storedUser = localStorage.getItem("user");
+            setIsLoggedIn(!!token);
+            if (storedUser) {
+                setUser(JSON.parse(storedUser));
+            } else {
+                setUser(null);
+            }
+        };
+        loadUser();
+        window.addEventListener(
+            "userUpdated",
+            loadUser
+        );
+        return () => {
+            window.removeEventListener(
+                "userUpdated",
+                loadUser
+            );
+        };
     }, []);
 
     const handleLogout = async () => {
@@ -61,7 +76,7 @@ const Header = () => {
 
     return (
         <>
-            <header className='absolute left-0 top-0 w-full z-10 py-4'>
+            <header className='absolute left-0 top-0 w-full z-20 py-4'>
                 <div className="max-w-container mx-auto">
                     <div className='flex items-center gap-4 justify-between'>
                         <div>
@@ -71,8 +86,8 @@ const Header = () => {
                         </div>
                         <div className='flex items-center gap-10'>
                             <ul className='flex items-center gap-10'>
-                                <li><Link href={'#'} title='Home' className='text-white text-base'>Home</Link></li>
-                                <li><Link href={'#'} title='Courses' className='text-white text-base'>Courses</Link></li>
+                                <li><Link href={'/'} title='Home' className='text-white text-base'>Home</Link></li>
+                                <li><Link href={'/courses'} title='Courses' className='text-white text-base'>Courses</Link></li>
                                 <li><Link href={'/membership'} title='Membership' className='text-white text-base'>Membership</Link></li>
                                 <li><Link href={'/blog'} title='Blog' className='text-white text-base'>Blog</Link></li>
                                 <li><Link href={'#'} title='About Us' className='text-white text-base'>About Us</Link></li>
@@ -81,10 +96,13 @@ const Header = () => {
                                 <div className="relative" ref={dropdownRef}>
                                     <button 
                                         type="button" 
-                                        className="w-10 h-10 rounded-full overflow-hidden border border-gray-500 bg-white cursor-pointer"
+                                        className="cursor-pointer flex items-center gap-1"
                                         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                                     >
-                                        <img src="/images/logo.svg" alt="profile" className="w-full h-full object-cover" />
+                                        <span className="w-10 h-10 rounded-full overflow-hidden border border-gray-500 bg-white inline-block">
+                                            <img src="/images/logo.svg" alt="profile" className="w-full h-full object-cover" />
+                                        </span>
+                                        <span>{user?.username}</span>
                                     </button>
                                     {isDropdownOpen && (
                                         <div className="absolute right-0 top-full mt-2 shadow-xl p-2 bg-white w-35 rounded-md">

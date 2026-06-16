@@ -84,8 +84,9 @@ const Home = () => {
                     <div className='grid grid-cols-3 gap-5'>
                         {homeData?.CloudSoftware.map((item: any, id: any) => (
                             <div key={id} className='shadow-2xl bg-white p-5 text-center rounded-lg'>
-                                <span className='w-12 h-12 flex items-center justify-center border border-gray-500 rounded-full mx-auto mb-3'>
-                                    <img src={item?.icon} alt='' />
+                                <span className='w-12 h-12 flex items-center justify-center border border-gray-500 rounded-full mx-auto mb-3 bg-[#00CBB8]'>
+                                    {/* <img src={item?.icon} alt='' /> */}
+                                    <img src={'images/cloud-software1.svg'} alt='' className='max-h-6' />
                                 </span>
                                 <h3 className='text-primary text-2xl font-bold mb-2'>{item?.title}</h3>
                                 <p className='text-base text-black'>{item?.description}</p>
@@ -101,11 +102,19 @@ const Home = () => {
                     <h2 className='text-black text-5xl font-bold mb-4 text-center'>{homeData?.WhatIsTOTC?.title}</h2>
                     <p className='text-center mb-10'>{homeData?.WhatIsTOTC?.description}</p>
                     <div className='grid grid-cols-2 gap-10'>
-                        <div className='rounded-lg bg-no-repeat bg-cover shadow-2xl p-5 text-center min-h-[200px] flex flex-col items-center justify-center' style={{backgroundImage: `url(${homeData?.WhatIsTOTC?.ForInstructors?.image})`,}}>
+                        <div 
+                            className='rounded-xl bg-no-repeat bg-cover shadow-2xl p-5 text-center min-h-[250px] flex flex-col items-center justify-center relative z-10 overflow-hidden after:content after:absolute after:left-0 after:top-0 after:w-full after:h-full after:bg-black/40 after:-z-[1]' 
+                            // style={{backgroundImage: `url(${homeData?.WhatIsTOTC?.ForInstructors?.image})`,}}
+                            style={{backgroundImage: `url(images/totc1.png)`}}
+                        >
                             <h3 className='text-primary text-2xl font-bold mb-2'>{homeData?.WhatIsTOTC?.ForInstructors?.title}</h3>
                             <button type='button' className='bg-primary px-4 py-3 rounded-full text-white cursor-pointer'>{homeData?.WhatIsTOTC?.ForInstructors?.buttonText}</button>
                         </div>
-                        <div className='rounded-lg bg-no-repeat bg-cover shadow-2xl p-5 text-center min-h-[200px] flex flex-col items-center justify-center' style={{backgroundImage: `url(${homeData?.WhatIsTOTC?.ForStudents?.image})`,}}>
+                        <div 
+                            className='rounded-xl bg-no-repeat bg-cover shadow-2xl p-5 text-center min-h-[250px] flex flex-col items-center justify-center relative z-10 overflow-hidden after:content after:absolute after:left-0 after:top-0 after:w-full after:h-full after:bg-black/40 after:-z-[1]' 
+                            // style={{backgroundImage: `url(${homeData?.WhatIsTOTC?.ForStudents?.image})`,}}
+                            style={{backgroundImage: `url(images/totc1.png)`}}
+                        >
                             <h3 className='text-primary text-2xl font-bold mb-2'>{homeData?.WhatIsTOTC?.ForStudents?.title}</h3>
                             <button type='button' className='bg-primary px-4 py-3 rounded-full text-white cursor-pointer'>{homeData?.WhatIsTOTC?.ForStudents?.buttonText}</button>
                         </div>
@@ -116,14 +125,15 @@ const Home = () => {
             {/* Everything You Can Do With TOTC */}
             <section>
                 <div className="max-w-container mx-auto">
-                    <div className='grid grid-cols-2 gap-10'>
+                    <div className='grid grid-cols-2 gap-10 items-center'>
                         <div>
                             <h3 className='text-black text-2xl font-bold mb-2'>{homeData?.EverythingYouCanDoWithTOTC?.title} <span className='text-primary'>{homeData?.EverythingYouCanDoWithTOTC?.highlightedText}</span></h3>
                             <p className='text-base text-black mb-3'>{homeData?.EverythingYouCanDoWithTOTC?.description}</p>
                             <button type='button' className='bg-primary px-4 py-3 rounded-full text-white w-auto cursor-pointer'>{homeData?.EverythingYouCanDoWithTOTC?.buttonText}</button>
                         </div>
                         <div>
-                            <img src={homeData?.EverythingYouCanDoWithTOTC?.image} />
+                            {/* <img src={homeData?.EverythingYouCanDoWithTOTC?.image} alt='' /> */}
+                            <img src={'images/physical-classroom.png'} alt='' className='rounded-xl' />
                         </div>
                     </div>
                 </div>
@@ -140,7 +150,8 @@ const Home = () => {
                         {homeData?.OurFeatures?.features.map((item: any, id: any) => (
                             <div key={id} className='grid grid-cols-2 gap-10 items-center'>
                                 <div className={`${id % 2 !== 0 ? 'md:order-2' : 'md:order-1'}`}>
-                                    <img src={item?.image} />
+                                    {/* <img src={item?.image} alt='' /> */}
+                                    <img src={'images/features1.png'} alt='' />
                                 </div>
                                 <div className={`${id % 2 !== 0 ? 'md:order-1' : 'md:order-2'}`}>
                                     <h3 className='text-black text-2xl font-bold mb-2'>{item?.title}</h3>
@@ -184,11 +195,8 @@ const Home = () => {
                             <SwiperSlide key={index}>
                                 <div className="bg-white rounded-2xl p-6 shadow-lg h-full">
                                     <div className="flex items-center gap-4 mb-4">
-                                        <img
-                                            src={item.image}
-                                            alt={item.name}
-                                            className="w-14 h-14 rounded-full object-cover"
-                                        />
+                                        {/* <img src={item.image} alt={item.name} className="w-14 h-14 rounded-full object-cover" /> */}
+                                        <img src={'images/user.png'} alt='' className="w-14 h-14 rounded-full object-cover overflow-hidden border border-gray-300" />
                                         <div>
                                             <h4 className="font-semibold">{item.name}</h4>
                                             <p className="text-sm text-gray-500">{item.designation}</p>
@@ -221,7 +229,8 @@ const Home = () => {
                     </div>
                     <div className='grid grid-cols-2 gap-10'>
                         <div className=''>
-                            <img src={homeData?.LatestNewsAndResources?.featuredNews?.image} className='w-full h-85 rounded-xl object-cover overflow-hidden' />
+                            {/* <img src={homeData?.LatestNewsAndResources?.featuredNews?.image} className='w-full h-85 rounded-xl object-cover overflow-hidden' /> */}
+                            <img src={'images/totc1.png'} className='w-full h-85 rounded-xl object-cover overflow-hidden' />
                             <div className='pt-5'>
                                 <span className='bg-primary px-4 py-3 rounded-full text-white w-auto text-xs inline-block'>{homeData?.LatestNewsAndResources?.featuredNews?.tag}</span>
                                 <h3 className='text-black text-xl font-bold mt-4 mb-3'><Link href={homeData?.LatestNewsAndResources?.featuredNews?.readMoreLink || '#'}>{homeData?.LatestNewsAndResources?.featuredNews?.title}</Link></h3>
@@ -232,7 +241,8 @@ const Home = () => {
                             {homeData?.LatestNewsAndResources?.news.map((item:any, index:any) => (
                                 <div key={index} className='flex flex-wrap gap-5'>
                                     <div className='relative flex-[0_0_calc(35%-20px)] max-w-[calc(35%-20px)]'>
-                                        <img src={item?.image} className='w-full h-37.5 rounded-xl object-cover overflow-hidden' />
+                                        {/* <img src={item?.image} className='w-full h-37.5 rounded-xl object-cover overflow-hidden' /> */}
+                                        <img src={'images/totc1.png'} className='w-full h-37.5 rounded-xl object-cover overflow-hidden' />
                                         <span className='bg-primary px-3 py-2 rounded-full text-white w-auto text-xs inline-block absolute right-2 bottom-2'>{item?.tag}</span>
                                     </div>
                                     <div className='flex-[0_0_65%] max-w-[65%]'>
