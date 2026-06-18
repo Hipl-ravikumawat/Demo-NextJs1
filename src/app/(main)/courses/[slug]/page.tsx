@@ -1,6 +1,25 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect } from 'react';
+import { useSearchParams } from "next/navigation";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { courseDetail } from '@/store/slices/coursesSlice';
 
 const CourseDetail = () => {
+    const dispatch = useAppDispatch();
+    
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
+    const {courseDetailData} = useAppSelector((state) => state.courses);
+
+    useEffect(() => {
+        if (id) {
+            dispatch(courseDetail(id));
+        }
+    }, [dispatch, id]);
+
+    console.log("courseDetailData", courseDetailData);
+
     return (
         <>
             <div 

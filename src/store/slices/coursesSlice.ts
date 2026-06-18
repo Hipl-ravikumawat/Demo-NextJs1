@@ -6,17 +6,32 @@ const initialState = {
     error: null as string | null,
 
     coursesData: null as any,
+    courseDetailData: null as any,
 };
 
 // For Courses
 export const coursesPage = createAsyncThunk(
     "courses/coursesPage", async (_, { rejectWithValue }) => {
         try {
-            const response = await api.get("web/literature-courses");
-            return response.data;
+            const response = await api.get("web/course-landing-page");
+            return response.data.data;
         } catch (error: any) {
             return rejectWithValue(
                 error.response?.data?.message || "Failed to fetch courses page data"
+            );
+        }
+    }
+);
+
+// For Course Detail
+export const courseDetail = createAsyncThunk(
+    "courses/courseDetail", async (id: string, { rejectWithValue }) => {
+        try {
+            const response = await api.get(`web/courses/${id}`);
+            return response.data.data;
+        } catch (error: any) {
+            return rejectWithValue(
+                error.response?.data?.message || "Failed to fetch blog details"
             );
         }
     }
@@ -42,6 +57,21 @@ const coursesSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         })
+
+        // For Course Detail
+        .addCase(courseDetail.pending, (state) => {
+            state.loading = true;
+            state.error = null;
+        })
+        .addCase(courseDetail.fulfilled, (state, action) => {
+            state.loading = false;
+            //console.log("object", action.payload);
+            state.courseDetailData = action.payload;
+        })
+        .addCase(courseDetail.rejected, (state, action: any) => {
+            state.loading = false;
+            state.error = action.payload;
+        });
     },
 });
 
