@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { searchPage } from '@/store/slices/searchSlice';
 import CourseCard from '@/components/courseCard';
@@ -11,17 +11,41 @@ import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { FaStar } from 'react-icons/fa';
+import { searchCourses } from "@/store/slices/searchSlice";
+import { toast } from 'react-toastify';
 
 const Search = () => {
+    const [filters, setFilters] = useState({
+        keyword: "",
+        subject: "",
+        partner: "",
+        program: "",
+        language: "",
+        availability: "",
+        learningType: "",
+    });
     const dispatch = useAppDispatch();
+    const {searchPageData, searchResults, isSearchPerformed} = useAppSelector((state) => state.search);
 
-    const {searchPageData} = useAppSelector((state) => state.search);
-    
     useEffect(() => {
         dispatch(searchPage())
     }, [dispatch]);
 
-    console.log("searchPageData", searchPageData);
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        const hasFilters = Object.values(filters).some(
+            (value) => value.trim() !== ""
+        );
+        if (!hasFilters) {
+            toast.error("Please select at least one filter");
+            return;
+        }
+        dispatch(searchCourses(filters));
+    };
+
+    const coursesToShow = isSearchPerformed ? searchResults : searchPageData?.featuredCourses?.cards;
+
+    //console.log("searchPageData", searchPageData);
 
     return (
         <>
@@ -32,16 +56,41 @@ const Search = () => {
             >
                 <div className="max-w-container mx-auto">
                     <div>
-                        <form className='bg-white p-1 rounded-sm flex justify-between mb-2'>
-                            <input type='text' placeholder={`${searchPageData?.heroSection?.searchPlaceholder}`} className='w-full pl-4 outline-none' />
-                            <button type='submit' className='bg-primary px-6 py-2.5 text-white rounded-full cursor-pointer'>Search</button>
+                        <form 
+                            onSubmit={handleSearch}
+                            className='bg-white p-1 rounded-sm flex justify-between mb-2'
+                        >
+                            <input 
+                                type='text' 
+                                placeholder={`${searchPageData?.heroSection?.searchPlaceholder}`} 
+                                className='w-full pl-4 outline-none' 
+                                value={filters.keyword}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        keyword: e.target.value,
+                                    })
+                                }
+                            />
+                            <button 
+                                type='submit' 
+                                className='bg-primary px-6 py-2.5 text-white rounded-full cursor-pointer'
+                            >
+                                Search
+                            </button>
                         </form>
                         <div className='flex gap-1'>
                             <select 
-                                defaultValue=""
+                                value={filters.subject}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        subject: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Subject</option>
+                                <option value="">Subject</option>
                                 {searchPageData?.heroSection?.subjects?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -49,10 +98,16 @@ const Search = () => {
                                 ))}
                             </select>
                             <select 
-                                defaultValue=""
+                                value={filters.partner}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        partner: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Partner</option>
+                                <option value="">Partner</option>
                                 {searchPageData?.heroSection?.partners?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -60,10 +115,16 @@ const Search = () => {
                                 ))}
                             </select>
                             <select 
-                                defaultValue=""
+                                value={filters.program}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        program: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Program</option>
+                                <option value="">Program</option>
                                 {searchPageData?.heroSection?.programs?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -71,10 +132,16 @@ const Search = () => {
                                 ))}
                             </select>
                             <select 
-                                defaultValue=""
+                                value={filters.language}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        language: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Language</option>
+                                <option value="">Language</option>
                                 {searchPageData?.heroSection?.languages?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -82,10 +149,16 @@ const Search = () => {
                                 ))}
                             </select>
                             <select 
-                                defaultValue=""
+                                value={filters.availability}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        availability: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Abaliability</option>
+                                <option value="">Abaliability</option>
                                 {searchPageData?.heroSection?.availability?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -93,10 +166,16 @@ const Search = () => {
                                 ))}
                             </select>
                             <select 
-                                defaultValue=""
+                                value={filters.learningType}
+                                onChange={(e) =>
+                                    setFilters({
+                                        ...filters,
+                                        learningType: e.target.value,
+                                    })
+                                }
                                 className='bg-white p-2 rounded-sm outline-none flex-1'
                             >
-                                <option value="" disabled>Learning Type</option>
+                                <option value="">Learning Type</option>
                                 {searchPageData?.heroSection?.learningTypes?.map((item: string, index: number) => (
                                     <option key={index} value={item}>
                                         {item}
@@ -110,11 +189,17 @@ const Search = () => {
 
             <section className='py-16'>
                 <div className='max-w-container mx-auto'>
-                    <div className='grid grid-cols-4 gap-8'>
-                        {searchPageData?.featuredCourses?.cards.map((item: any, index: number) => (
-                            <CourseCard key={index} courseCard={item} />
-                        ))}
-                    </div>
+                    {coursesToShow?.length > 0 ? (
+                        <div className='grid grid-cols-4 gap-8'>
+                            {coursesToShow?.map((item: any, index: number) => (
+                                <CourseCard key={index} courseCard={item} />
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-10">
+                            No courses found
+                        </div>
+                    )}
                 </div>
             </section>
 
@@ -129,11 +214,11 @@ const Search = () => {
                                         <div key={index} className="flex items-start gap-2">
                                             <span className="w-2 h-2 rounded-full bg-primary mt-2 shrink-0"></span>
                                             <span>
-                                            {line}
-                                            {index <
-                                                searchPageData?.learningBanner?.description
-                                                ?.split(". ")
-                                                .filter(Boolean).length - 1 && "."}
+                                                {line}
+                                                {index <
+                                                    searchPageData?.learningBanner?.description
+                                                    ?.split(". ")
+                                                    .filter(Boolean).length - 1 && "."}
                                             </span>
                                         </div>
                                     ))}
