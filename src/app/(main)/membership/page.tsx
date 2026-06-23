@@ -27,9 +27,7 @@ const MemberShip = () => {
         dispatch(memberShipPage())
     }, [dispatch]);
 
-    console.log("memberShipData", memberShipData);
-
-    //console.log("data", memberShipData?.appSection?.androidLink);
+    //console.log("memberShipData", memberShipData);
 
     return (
         <>

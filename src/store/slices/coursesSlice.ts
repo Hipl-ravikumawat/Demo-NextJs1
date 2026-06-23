@@ -27,7 +27,7 @@ export const coursesPage = createAsyncThunk(
 export const courseDetail = createAsyncThunk(
     "courses/courseDetail", async (id: string, { rejectWithValue }) => {
         try {
-            const response = await api.get(`web/courses/${id}`);
+            const response = await api.get(`web/course-landing-page/${id}`);
             return response.data.data;
         } catch (error: any) {
             return rejectWithValue(

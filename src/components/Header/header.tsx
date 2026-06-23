@@ -90,7 +90,7 @@ const Header = () => {
                                 <li><Link href={'/courses'} title='Courses' className='text-white text-base'>Courses</Link></li>
                                 <li><Link href={'/membership'} title='Membership' className='text-white text-base'>Membership</Link></li>
                                 <li><Link href={'/blog'} title='Blog' className='text-white text-base'>Blog</Link></li>
-                                <li><Link href={'#'} title='About Us' className='text-white text-base'>About Us</Link></li>
+                                <li><Link href={'/search'} title='Search' className='text-white text-base'>Search</Link></li>
                             </ul>
                             {isLoggedIn ? (
                                 <div className="relative" ref={dropdownRef}>

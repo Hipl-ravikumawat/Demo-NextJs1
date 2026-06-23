@@ -13,7 +13,7 @@ interface RecommendedProps {
 const RecommendedSection = ({recommendedBlogs,}:RecommendedProps) => {
     return (
         <>
-            <section className='py-20 bg-[#9DCCFF]'>
+            <section className='py-20 bg-[#9DCCFF]/20'>
                 <div className="max-w-container mx-auto">
                     <div className='flex items-center justify-between mb-5'>
                         <h2 className='text-black text-xl font-bold'>Recommended for you</h2>

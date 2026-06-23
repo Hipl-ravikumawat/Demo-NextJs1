@@ -18,7 +18,7 @@ const CourseCard = ({courseCard,}:courseCardProps) => {
                         </span>
                         <span className='text-xs text-[#696984]'>{courseCard?.duration}</span>
                     </div>
-                    <h2 className='text-black text-xl font-bold mb-2'><Link href={`#`}>{courseCard?.title}</Link></h2>
+                    <h2 className='text-black text-xl font-bold mb-2'><Link href={`/courses/${courseCard?.courseId}`}>{courseCard?.title}</Link></h2>
                     <p className="mb-4">{courseCard?.description}</p>
                     <div className='flex items-center justify-between'>
                         <div className='flex gap-2 items-center'>

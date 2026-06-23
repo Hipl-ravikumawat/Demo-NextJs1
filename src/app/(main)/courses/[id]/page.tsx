@@ -4,13 +4,14 @@ import React, { useEffect } from 'react';
 import { useSearchParams } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { courseDetail } from '@/store/slices/coursesSlice';
+import { useParams } from 'next/navigation';
 
 const CourseDetail = () => {
     const dispatch = useAppDispatch();
-    
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
-    const {courseDetailData} = useAppSelector((state) => state.courses);
+    const params = useParams();
+
+    const id = params.id as string;
+    const {courseDetailData, loading} = useAppSelector((state) => state.courses);
 
     useEffect(() => {
         if (id) {
@@ -28,7 +29,11 @@ const CourseDetail = () => {
                 style={{backgroundImage: `url(/images/totc1.png)`}}
             ></div>
             
-
+            <section className=''>
+                <div className="max-w-container mx-auto">
+                    
+                </div>
+            </section>
         </>
     )
 };

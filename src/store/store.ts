@@ -6,6 +6,7 @@ import membershipReducer from "./slices/memberShipSlice";
 import profileReducer from "./slices/profileSlice";
 import coursesReducer from "./slices/coursesSlice";
 import newsletterReducer from "./slices/newsletterSlice";
+import searchReducer from "./slices/searchSlice";
 
 export const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
         profile: profileReducer,
         courses: coursesReducer,
         newsletter: newsletterReducer,
+        search: searchReducer,
     },
 });
 
