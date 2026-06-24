@@ -55,15 +55,22 @@ const Meetings = () => {
     // }, []);
 
     return (
-        <div className="pt-37.5 pb-16">
-            <div className="max-w-container mx-auto">
-                <h1 className="text-xl font-bold mb-3">Video Call</h1>
-                <div
-                    id="local-player"
-                    className="w-[500px] h-[400px] bg-gray-200"
-                />
+        <>
+            <section className='bg-[#9DCCFF] pt-40 pb-20'>
+                <div className="max-w-container mx-auto">
+                    <h1 className="text-2xl font-bold mb-5 text-center">Meeting</h1>
+                </div>
+            </section>
+            <div className="py-16">
+                <div className="max-w-container mx-auto">
+                    <h1 className="text-xl font-bold mb-3">Video Call</h1>
+                    <div
+                        id="local-player"
+                        className="w-[500px] h-[400px] bg-gray-200"
+                    />
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 

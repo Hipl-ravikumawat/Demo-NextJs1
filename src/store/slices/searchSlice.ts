@@ -17,7 +17,7 @@ export const searchPage = createAsyncThunk(
             return response.data.data;
         } catch (error: any) {
             return rejectWithValue(
-                error.response?.data?.message || "Failed to fetch marketplace page data"
+                error.response?.data?.message || "Failed to fetch search page data"
             );
         }
     }

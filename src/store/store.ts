@@ -9,6 +9,7 @@ import newsletterReducer from "./slices/newsletterSlice";
 import searchReducer from "./slices/searchSlice";
 import literatureCourseReducer from "./slices/literatureCourseSlice";
 import meetingReducer from "./slices/meetingSlice";
+import chatReducer from "./slices/chatSlice";
 
 export const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
         search: searchReducer,
         literatureCourse: literatureCourseReducer,
         meeting: meetingReducer,
+        chat: chatReducer,
     },
 });
 

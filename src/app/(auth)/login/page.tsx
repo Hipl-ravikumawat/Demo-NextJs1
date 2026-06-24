@@ -33,7 +33,7 @@ const Login = () => {
             try {
                 const result = await dispatch(loginUser(values)).unwrap();
                 Cookies.set("token", result.token, {
-                    expires: values.rememberMe ? 30 : 1,
+                    expires: values.rememberMe ? 7 : 1,
                     path: "/",
                 });
                 localStorage.setItem("user", JSON.stringify(result.user));
