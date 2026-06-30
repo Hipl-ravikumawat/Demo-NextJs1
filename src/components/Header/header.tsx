@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import Cookies from "js-cookie";
+import { isAuthenticated } from "@/lib/auth";
 import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { logoutUser } from "@/store/slices/authSlice";
+import { logout, logoutUser } from "@/store/slices/authSlice";
 
 const Header = () => {
     const dispatch = useAppDispatch();
@@ -36,42 +36,36 @@ const Header = () => {
 
     useEffect(() => {
         const loadUser = () => {
-            const token = Cookies.get("token");
             const storedUser = localStorage.getItem("user");
-            setIsLoggedIn(!!token);
-            if (storedUser) {
+            setIsLoggedIn(isAuthenticated());
+            if (storedUser && isAuthenticated()) {
                 setUser(JSON.parse(storedUser));
             } else {
                 setUser(null);
             }
         };
         loadUser();
-        window.addEventListener(
-            "userUpdated",
-            loadUser
-        );
+        window.addEventListener("userUpdated", loadUser);
+        window.addEventListener("sessionExpired", loadUser);
         return () => {
-            window.removeEventListener(
-                "userUpdated",
-                loadUser
-            );
+            window.removeEventListener("userUpdated", loadUser);
+            window.removeEventListener("sessionExpired", loadUser);
         };
     }, []);
 
     const handleLogout = async () => {
         try {
             await dispatch(logoutUser()).unwrap();
-            Cookies.remove("token");
-            localStorage.removeItem("user");
-            //localStorage.removeItem("rememberMe");
-            setIsLoggedIn(false);
-            setLogoutModal(false);
-            setUser(null);
-            toast.success("Logout successful");
-            router.push("/");
-        } catch (error: any) {
-            toast.error(error || "Logout failed");
+        } catch {
+            // Clear local session even when API is unavailable
         }
+
+        dispatch(logout());
+        setIsLoggedIn(false);
+        setLogoutModal(false);
+        setUser(null);
+        toast.success("Logout successful");
+        router.push("/");
     };
 
     return (

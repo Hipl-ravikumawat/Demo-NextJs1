@@ -6,41 +6,44 @@ interface JwtPayload {
     exp: number;
 }
 
+const authRoutes = ["/login", "/register", "/forgot-password"];
+const protectedRoutes = ["/profile", "/chat", "/meeting"];
+
+function isValidToken(token: string): boolean {
+    try {
+        const decoded = jwtDecode<JwtPayload>(token);
+        return decoded.exp >= Math.floor(Date.now() / 1000);
+    } catch {
+        return false;
+    }
+}
+
 export function middleware(request: NextRequest) {
     const token = request.cookies.get("token")?.value;
     const pathname = request.nextUrl.pathname;
-    const authRoutes = [
-        "/login",
-        "/register",
-        "/forgot-password",
-    ];
 
-    const isAuthRoute = authRoutes.includes(pathname) || pathname.startsWith("/reset-password");
-    
-    if (token) {
-        try {
-            const decoded = jwtDecode<JwtPayload>(token);
-            const currentTime = Math.floor(Date.now() / 1000);
-            if (decoded.exp < currentTime) {
-                const response = NextResponse.redirect(
-                    new URL("/login", request.url)
-                );
-                response.cookies.delete("token");
-                return response;
-            }
-        } catch (error) {
-            const response = NextResponse.redirect(
-                new URL("/login", request.url)
-            );
-            response.cookies.delete("token");
-            return response;
-        }
+    const isAuthRoute =
+        authRoutes.includes(pathname) || pathname.startsWith("/reset-password");
+    const isProtectedRoute = protectedRoutes.some((route) =>
+        pathname.startsWith(route)
+    );
+
+    const hasValidToken = !!token && isValidToken(token);
+
+    if (token && !hasValidToken) {
+        const response = NextResponse.redirect(new URL("/login", request.url));
+        response.cookies.delete("token");
+        return response;
     }
-    if (token && isAuthRoute) {
-        return NextResponse.redirect(
-            new URL("/", request.url)
-        );
+
+    if (isProtectedRoute && !hasValidToken) {
+        return NextResponse.redirect(new URL("/login", request.url));
     }
+
+    if (hasValidToken && isAuthRoute) {
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
     return NextResponse.next();
 }
 
@@ -50,5 +53,8 @@ export const config = {
         "/register",
         "/forgot-password",
         "/reset-password/:path*",
+        "/profile/:path*",
+        "/chat/:path*",
+        "/meeting/:path*",
     ],
 };

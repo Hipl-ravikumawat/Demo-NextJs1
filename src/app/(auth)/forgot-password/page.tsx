@@ -1,11 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import { forgotPasswordSchema } from "@/validations/forgotPasswordSchema";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { forgotPassword } from "@/store/slices/authSlice";
+import { AuthShell } from "@/components/Auth/AuthShell";
+import { AuthInput } from "@/components/Auth/AuthInput";
+import { AuthButton } from "@/components/Auth/AuthButton";
+import { AuthBackLink } from "@/components/Auth/AuthBackLink";
 
 const ForgotPassword = () => {
     const dispatch = useAppDispatch();
@@ -26,42 +29,36 @@ const ForgotPassword = () => {
             }
         },
     });
+
     return (
-        <>
-            <div className='max-w-[520px] mx-auto p-6 w-full'>
-                <div className=''>
-                    <h1 className='text-foreground mb-4 font-bold text-3xl'>Forgot Password</h1>
-                    <form className='mb-4' onSubmit={formik.handleSubmit}>
-                        <div className='mb-5'>
-                            <label className='block mb-1'>Email Address</label>
-                            <input 
-                                type="email"
-                                name="email"
-                                placeholder="Enter your Email Address"
-                                className="outline-0 w-full border border-foreground p-3 rounded-full"
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                            />
-                            {formik.touched.email && formik.errors.email && (
-                                <p className="text-red-500 text-sm mt-1">
-                                    {formik.errors.email}
-                                </p>
-                            )}
-                        </div>
-                        <button 
-                            type='submit' 
-                            disabled={loading}
-                            className='bg-primary px-6 py-3 text-white rounded-full cursor-pointer w-full'
-                        >
-                            {loading ? "Sending..." : "Send Reset Link"}
-                        </button>
-                    </form>
-                    <Link href={'/login'} className='underline text-primary'>Back to login</Link>
-                </div>
-            </div>
-        </>
-    )
+        <AuthShell
+            title="Forgot your password?"
+            description="Enter your email address and we will send you a link to reset your password."
+        >
+            <form onSubmit={formik.handleSubmit}>
+                <AuthInput
+                    label="Email Address"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your Email Address"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                        formik.touched.email && formik.errors.email
+                            ? formik.errors.email
+                            : undefined
+                    }
+                />
+
+                <AuthButton loading={loading} loadingText="Sending..." fullWidth>
+                    Send Reset Link
+                </AuthButton>
+            </form>
+
+            <AuthBackLink />
+        </AuthShell>
+    );
 };
 
 export default ForgotPassword;
