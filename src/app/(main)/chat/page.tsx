@@ -121,7 +121,7 @@ const Chat = () => {
         <>
           <section className="bg-[#9DCCFF] pt-40 pb-20">
             <div className="max-w-container mx-auto">
-              <h1 className="text-2xl font-bold text-center">Chat</h1>
+              <h1 className="font-bold text-center font-clamp">Chat</h1>
             </div>
           </section>
 
