@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "@/api/axios";
+import { clearAuthSession, setAuthToken } from "@/lib/auth";
 
 interface AuthState {
     loading: boolean;
@@ -93,9 +94,7 @@ const authSlice = createSlice({
         logout: (state) => {
             state.user = null;
             state.token = null;
-
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
+            clearAuthSession();
         },
     },
 
@@ -109,7 +108,7 @@ const authSlice = createSlice({
             state.loading = false;
             state.user = action.payload.user;
             state.token = action.payload.token;
-            localStorage.setItem("token", action.payload.token);
+            setAuthToken(action.payload.token);
             localStorage.setItem("user", JSON.stringify(action.payload.user));
         })
         .addCase(loginUser.rejected, (state, action: any) => {
